@@ -45,10 +45,15 @@
                 <td>@item.Registration</td>
                 <td>£@item.PurchasePrice</td>
                 <td>£@item.SalePrice</td>
-                @if (item.Reserved)
+                @if (item.Sold)
+                {
+                    <td>Sold</td>
+                }
+                else if (item.Reserved)
                 {
                     <td>
-                        Reserved
+                        <P>Reserved</P>
+                        
 
                     </td>
                     <td>
@@ -58,7 +63,15 @@
                         {
                             @if (item.HasPromo)
                             {
-                                <div><p>£25 discount applied to sale price</p></div>
+                                @if (item.PromoName == "DISCOUNT")
+                                {
+                                    <div><p>£25 discount applied to sale price</p></div>
+                                }
+                                else
+                                {
+                                    <div><p>£15% discount applied to sale price</p></div>
+                                }
+
                             }
                             else
                             {
@@ -81,7 +94,15 @@
                         {
                             @if (item.HasPromo)
                             {
-                                <div><p>£25 discount applied to sale price</p></div>
+                                @if (item.PromoName == "DISCOUNT")
+                                {
+                                    <div><p>£25 discount applied to sale price</p></div>
+                                }
+                                else
+                                {
+                                    <div><p>£15% discount applied to sale price</p></div>
+                                }
+
                             }
                             else
                             {

@@ -21,7 +21,7 @@ namespace Catalog.API.Controllers
         //[HttpGet]
         public List<PlateRecord> GetAllPlates()
         {
-           
+
             return _plateRepository.GetAllPlates();
         }
 

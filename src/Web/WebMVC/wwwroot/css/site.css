@@ -50,6 +50,13 @@ body {
     margin: 10px 10px;
 }
 
-.center-content{
+.center-content {
     display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.search-page-close-btn {
+    width: 210px;
+    margin: 10px;
 }

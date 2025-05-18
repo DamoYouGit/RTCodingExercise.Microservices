@@ -51,9 +51,9 @@ namespace WebMVC.Controllers
             return View();
         }
 
-        public IActionResult NoPlateFound(string NoPlateFound)
+        public IActionResult NoPlateFound(string reg)
         {
-            ViewData["Registration"] = NoPlateFound;
+            ViewData["Registration"] = reg;
             return View();
         }
 
@@ -64,8 +64,6 @@ namespace WebMVC.Controllers
             {
                 return RedirectToAction("FailedPromoCode" ,"result", new { promoCode = PromoCode });
             }
-
-           //var plates = await _plateService.SearchPlates(plate);
 
             return RedirectToAction("index", "result", new { queryString = Registration, sortby = "", promoCode = PromoCode } );
         }
@@ -99,14 +97,14 @@ namespace WebMVC.Controllers
         public async Task<IActionResult> ReservePlate(string reg, string queryString, string sortBy = "")
         {
             await _producerService.ReservePlate(reg);
-            await Task.Delay(3000);
+            await Task.Delay(5000);
             return RedirectToAction("index", "result", new { QueryString = queryString, sortby = sortBy });
         }
 
         public async Task<IActionResult> UnreservePlate(string reg, string queryString, string sortBy = "")
         {
             await _producerService.UnreservePlate(reg);
-            await Task.Delay(3000);
+            await Task.Delay(5000);
             return RedirectToAction("index", "result", new { QueryString = queryString, sortby = sortBy });
         }
 

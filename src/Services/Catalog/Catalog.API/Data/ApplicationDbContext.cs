@@ -8,6 +8,7 @@
         }
 
         public DbSet<Plate> Plates { get; set; }
+        public DbSet<ReservationLog> ReservationLogs { get; set; }
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    modelBuilder.Entity<Plate>().Ignore(c => c.PromoName);

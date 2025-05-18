@@ -41,6 +41,9 @@ namespace WebMVC.Services
             vmResult.TotalPlates = vmResult.PlateRecords.Count();
 
             vmResult.PlateRecords = sortModel(sortBy, vmResult.PlateRecords);
+
+            vmResult.PlateRecords = AddTax(vmResult.PlateRecords);
+
             return vmResult;
         }
 
@@ -65,6 +68,15 @@ namespace WebMVC.Services
                     break;
             }
             return plates;
+        }
+
+        private List<PlateRecord> AddTax(List<PlateRecord> model)
+        {
+            foreach (PlateRecord plate in model)
+            {
+                plate.SalePrice = Math.Round( plate.SalePrice + (plate.SalePrice / 100 * 20), 2);
+            }
+            return model;
         }
     }
 }

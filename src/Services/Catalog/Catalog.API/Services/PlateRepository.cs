@@ -8,6 +8,13 @@ namespace Catalog.API.Services
         public PlateRepository(ApplicationDbContext context) { _context = context; }
         public async Task AddPlate(Plate plate)
         {
+            var exists = _context.Plates.Where(x => x.Registration == plate.Registration).Any();
+
+            if (exists)
+            {
+                return;
+
+            }
             await _context.Plates.AddAsync(plate);
             _context.SaveChanges();
         }
@@ -49,8 +56,8 @@ namespace Catalog.API.Services
                         Letters = x.Letters,
                         Numbers = x.Numbers,
                         Registration = x.Registration,
-                        SalePrice = x.SalePrice,
-                        PurchasePrice = x.PurchasePrice,
+                        SalePrice = Math.Round(x.SalePrice, 2),
+                        PurchasePrice = Math.Round( x.PurchasePrice, 2),
                         Sold = x.Sold,
                         Reserved = x.Reserved
 
@@ -92,8 +99,8 @@ namespace Catalog.API.Services
                 Letters = x.Letters,
                 Numbers = x.Numbers,
                 Registration = x.Registration,
-                SalePrice = x.SalePrice,
-                PurchasePrice = x.PurchasePrice,
+                SalePrice = Math.Round(x.SalePrice, 2),
+                PurchasePrice = Math.Round(x.PurchasePrice, 2),
                 Sold = x.Sold,
                 Reserved = x.Reserved
 
@@ -136,8 +143,8 @@ namespace Catalog.API.Services
                 Letters = x.Letters,
                 Numbers = x.Numbers,
                 Registration = x.Registration,
-                SalePrice = x.SalePrice,
-                PurchasePrice = x.PurchasePrice,
+                SalePrice = Math.Round( x.SalePrice, 2),
+                PurchasePrice = Math.Round( x.PurchasePrice, 2),
                 Sold = x.Sold,
                 Reserved = x.Reserved
 
@@ -150,15 +157,29 @@ namespace Catalog.API.Services
 
             if (result != null) 
             {
-                // result.Reserved = true? false:true;
+                
 
                 if (result.Reserved)
                 {
                     result.Reserved = false;
+                    var log = new ReservationLog
+                    {   Id = new Guid(), 
+                        Registration = reg,
+                        IsReserved = false,
+                        CreatedOn = DateTime.UtcNow
+                    };
+                    await _context.ReservationLogs.AddAsync(log);
                 }
                 else 
                 {
                     result.Reserved = true;
+                    var log = new ReservationLog
+                    {   Id = new Guid(), 
+                        Registration = reg,
+                        IsReserved = false,
+                        CreatedOn = DateTime.UtcNow
+                    };
+                    await _context.ReservationLogs.AddAsync(log);
                 }
                 await _context.SaveChangesAsync();
             }
