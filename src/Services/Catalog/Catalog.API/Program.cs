@@ -3,6 +3,7 @@ string AppName = Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIn
 
 var configuration = GetConfiguration();
 
+
 Log.Logger = CreateSerilogLogger(configuration);
 
 try

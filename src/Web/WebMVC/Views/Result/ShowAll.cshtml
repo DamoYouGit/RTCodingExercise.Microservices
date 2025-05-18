@@ -1,0 +1,67 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@*  <div>
+        <p>Sort by</p>
+        <input type="button" value="Highest first" />
+        <input type="button" value="Lowest first" />
+    </div> *@
+
+<div class="dropdown" style="float:left;">
+    <button class="dropbtn">Sort by</button>
+    <div class="dropdown-content" style="left:0;">
+        <a href="@Url.Action("ShowAll", "Result", new {sortBy ="pPrice_desc"})">Highest Purchase Price</a>
+        <a href="@Url.Action("ShowAll", "Result", new {sortBy ="pPrice_asc"})">Lowest Purchase Price</a>
+        <a href="@Url.Action("ShowAll", "Result", new {sortBy ="sPrice_desc"})">Highest Sale Price</a>
+        <a href="@Url.Action("ShowAll", "Result", new {sortBy ="sPrice_asc"})">Lowest Sale Price</a>
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+
+    <div style="border: black 2px solid; margin:40px; padding:10px 40px">
+        <table style="width:100%">
+            <tr>
+                <th>Registration</th>
+                <th>Purchase Price</th>
+                <th>Sale Price</th>
+                <th>Availability</th>
+            </tr>
+            <tr>
+                <td>@item.Registration</td>
+                <td>£@item.PurchasePrice</td>
+                <td>£@item.SalePrice</td>
+                @if (item.Reserved)
+                {
+                    <td>
+                        Reserved
+                        
+                    </td>
+                    <td>
+                        <input type="button" value="Reserved"  />
+                        <input type="button" value="Purchase" onclick="PurchasePlate(@item.Registration)" />
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Available
+                       
+                    </td>
+                }
+                <td>
+                    <input type="button" value="Reserve" onclick="ReservePlate(@item.Registration)" />
+                    <input type="button" value="Purchase" onclick="PurchasePlate(@item.Registration)" />
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    
+}
+
+<script></script>

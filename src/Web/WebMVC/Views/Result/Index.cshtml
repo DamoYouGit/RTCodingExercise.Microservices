@@ -1,0 +1,108 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="dropdown" style="float:left;">
+    <button class="dropbtn">Sort by</button>
+    <div class="dropdown-content" style="left:0;">
+        <a href="@Url.Action("index", "Result", new {queryString = Model.QueryString, sortBy ="pPrice_desc", promoCode = Model.PromoCode})">Highest Purchase Price</a>
+        <a href="@Url.Action("index", "Result", new {queryString = Model.QueryString, sortBy ="pPrice_asc", promoCode = Model.PromoCode})">Lowest Purchase Price</a>
+        <a href="@Url.Action("index", "Result", new {queryString = Model.QueryString, sortBy ="sPrice_desc", promoCode = Model.PromoCode})">Highest Sale Price</a>
+        <a href="@Url.Action("index", "Result", new {queryString = Model.QueryString, sortBy ="sPrice_asc", promoCode = Model.PromoCode})">Lowest Sale Price</a>
+    </div>
+</div>
+<div><input id="" type="button" title="home" value="Back to home page" onclick="location.href='@Url.Action("index", "home")'" /></div>
+<div style="border: black 2px solid; margin:40px; padding:10px 40px">
+
+    <p>Total Revenue</p> 
+    <h2>@Model.PlatesRevenue</h2>
+</div>
+
+<div style="border: black 2px solid; margin:40px; padding:10px 40px">
+
+    <p>Average Profit Margin</p>
+    <h2>@Model.AverageProfitMargin</h2>
+</div>
+
+<div>
+    <h1>There are @Model.TotalPlates plates listed</h1>
+</div>
+
+@foreach (var item in Model.PlateRecords)
+{
+
+    <div style="border: black 2px solid; margin:40px; padding:10px 40px">
+        <table style="width:100%">
+            <tr>
+                <th>Registration</th>
+                <th>Purchase Price</th>
+                <th>Sale Price</th>
+                <th>Availability</th>
+            </tr>
+            <tr>
+                <td>@item.Registration</td>
+                <td>£@item.PurchasePrice</td>
+                <td>£@item.SalePrice</td>
+                @if (item.Reserved)
+                {
+                    <td>
+                        Reserved
+
+                    </td>
+                    <td>
+                        <input type="button" value="Unreserved" onclick="location.href='@Url.Action("UnreservePlate", "Result", new {reg=item.Registration, queryString = Model.QueryString, sortBy= Model.SortBy})'" />
+                        <input type="button" value="Sell Plate" onclick="location.href='@Url.Action("SellPlate", "Result", new {reg=item.Registration, sortBy= Model.SortBy})'" />
+                        @if (Model.PromoCode != null)
+                        {
+                            @if (item.HasPromo)
+                            {
+                                <div><p>£25 discount applied to sale price</p></div>
+                            }
+                            else
+                            {
+                                <div><p>Discount Not Available</p></div>
+                            }
+
+                        }
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Available
+
+                    </td>
+                    <td>
+                        <input type="button" value="Reserve" onclick="location.href='@Url.Action("ReservePlate", "Result", new {reg=item.Registration, queryString = Model.QueryString,sortBy= Model.SortBy})'" />
+                        <input type="button" value="Sell Plate" onclick="location.href='@Url.Action("SellPlate", "Result", new {reg=item.Registration, sortBy= Model.SortBy})'" /> @* no querystring as i dont want to load backing the registration. *@
+                        @if (Model.PromoCode != null)
+                        {
+                            @if (item.HasPromo)
+                            {
+                                <div><p>£25 discount applied to sale price</p></div>
+                            }
+                            else
+                            {
+                                <div><p>Discount Not Available</p></div>
+                            }
+
+                        }
+                       
+                        
+                    </td>
+                }
+               
+            </tr>
+
+        </table>
+    </div>
+
+}
+
+<script>
+
+    
+</script>
+

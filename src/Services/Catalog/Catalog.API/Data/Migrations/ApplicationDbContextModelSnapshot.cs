@@ -40,8 +40,14 @@ namespace Catalog.API.Migrations
                     b.Property<string>("Registration")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Reserved")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("Sold")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

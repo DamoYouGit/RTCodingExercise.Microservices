@@ -1,5 +1,8 @@
 ﻿using MassTransit;
 using RabbitMQ.Client;
+using WebMVC.Application.Interfaces;
+using WebMVC.Application.Services;
+using WebMVC.Services;
 
 namespace RTCodingExercise.WebMVC
 {
@@ -15,10 +18,17 @@ namespace RTCodingExercise.WebMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient<PlateService>((ServiceProvider, HttpClient) => 
+            {
+                HttpClient.BaseAddress = new Uri("http://catalog-api:80/");
+            });
             services.AddControllers();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages().AddRazorRuntimeCompilation();
-
+            services.AddScoped<IPlateService, PlateService>();
+            services.AddScoped<IProducerService, ProducerService>();
+            services.AddScoped<IHttpCallService, HttpCallService>();
+            services.AddScoped<IViewModelBuilder, ViewModelBuilder>();
             services.AddMassTransit(x =>
             {
                 //x.AddConsumer<ConsumerClass>();

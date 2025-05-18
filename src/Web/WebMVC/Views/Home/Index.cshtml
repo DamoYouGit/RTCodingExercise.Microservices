@@ -4,7 +4,110 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="">
+
+    <h1>What would you like to do?</h1>
+
+    <div class="options-container">
+        <div class="option-btn-container"><input class="option-btn" id="show-all-btn" type="button" title="Show all plates" value="Show all plates" onclick="location.href='@Url.Action("index", "Result")'" /></div>
+        <div class="option-btn-container"><input class="option-btn" type="button" title="Add Plate" value="Add Plate" onclick="openAddPlateForm()" id="add-plate" /></div>
+        <div class="option-btn-container"><input class="option-btn" type="button" title="Search for a Plate" value="Search for a Plate" onclick="openSearchPlateForm()" id="search-plate" /></div>
+    </div>
+    
+
+    <div class="search-form-container" id="add-plate-form">
+
+        <form method="post" action="Result/AddPlate">
+            <label for="registration">Registration:</label><br>
+            <input type="text" id="registration" name="Registration" placeholder="eg. GD09abc"><br>
+            <label for="purchasePrice">Purchase Price:</label><br>
+            <input type="text" id="purchasePrice" name="PurchasePrice" placeholder="eg.100"><br>
+            <label for="SalePrice">Sale Price:</label><br>
+            <input type="text" id="SalePrice" name="SalePrice" placeholder="eg.500"><br>
+            <label for="letters">Letters:</label><br>
+            <input type="text" id="letters" name="Letters" placeholder="eg. GD"><br>
+            <label for="numbers">Numbers:</label><br>
+            <input type="text" id="numbers" name="Numbers" placeholder="eg. 09"><br>
+            <input type="submit" value="Submit">
+            <input type="button" value="Close" id="close-Form" onclick="closeAddPlateForm()" />
+        </form>
+
+    </div>
+
+
+   
+    <div class="search-form-container" id="search-plate-form">
+        <div class="form-container">
+
+            <form method="post" action="Result/SearchPlate">
+         
+                <h3>Search Available Plates</h3>
+                <div>
+                    <p class="form-p-text">Registration</p>
+                    <input type="text" id="registration" name="Registration" value="" placeholder="Name, Initial or Age"><br>
+                </div>
+                <div>
+                    <p class="form-p-text">Promo Code</p>
+                    <input type="text" id="promo" name="PromoCode" value="" placeholder="Promo Code"><br>
+                </div>
+               
+                <input type="submit" value="Search">
+            </form>
+        </div>
+
+        <div class="form-container">
+            <form method="post" action="Result/SearchSoldPlates">
+      
+                <h3>Search Sold Plates</h3>
+                <div>
+                    <p class="form-p-text">Registration</p>
+                    <input type="text" id="registration" name="Registration" value="" placeholder="Registration"><br>
+                </div>
+                
+                <input type="submit" value="search">
+            </form>
+        </div>
+       
+
+        
+        @* 
+        <form method="post" action="result/search">
+            <label for="registration">search by name:</label><br>
+            <input type="text" id="registration" name="registration" value="john"><br>
+            <input type="submit" value="search">
+        </form> *@
+        <input type="button" value="Close" id="close-Form" onclick="closeSearchPlateForm()" />
+    </div>
+
+
+
+
+
 </div>
+
+
+<script>
+
+    function openAddPlateForm() {
+
+        document.getElementById("add-plate").disabled = true;
+        document.getElementById("show-all-btn").disabled = true;
+        document.getElementById("add-plate-form").style.display = "flex";
+
+    }
+
+    function closeAddPlateForm() {
+        document.getElementById("add-plate").disabled = false;
+        document.getElementById("show-all-btn").disabled = false;
+        document.getElementById("add-plate-form").style.display = "none";
+    }
+
+    function openSearchPlateForm(){
+        document.getElementById("search-plate-form").style.display = "flex";
+    }
+
+    function closeSearchPlateForm(){
+        document.getElementById("search-plate-form").style.display = "none";
+    }
+</script>
+

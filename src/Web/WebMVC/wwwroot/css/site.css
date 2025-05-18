@@ -16,3 +16,40 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.options-container {
+    display: flex;
+    margin: 50px 20px;
+}
+
+.option-btn-container{
+    margin: 0px 20px;
+}
+
+.option-btn{
+    height:100px;
+    width:300px;
+    background-color: forestgreen;
+    color: white;
+}
+.search-form-container {
+    display: none;
+    margin: 10px;
+    border: black 1px solid;
+}
+
+.form-container {
+    width: 500px;
+    border: black 1px solid;
+    margin: 10px;
+    
+}
+
+.form-p-text{
+    display:inline;
+    margin: 10px 10px;
+}
+
+.center-content{
+    display: flex;
+}

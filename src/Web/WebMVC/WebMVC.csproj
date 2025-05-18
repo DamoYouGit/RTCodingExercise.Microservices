@@ -36,7 +36,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\BuildingBlocks\EventBus\IntegrationEvents\IntegrationEvents.csproj" />
 	  <ProjectReference Include="..\..\Services\Catalog\Catalog.Domain\Catalog.Domain.csproj" />
+	  <ProjectReference Include="..\WebMVC.Application\WebMVC.Application.csproj" />
 	</ItemGroup>
 
 </Project>

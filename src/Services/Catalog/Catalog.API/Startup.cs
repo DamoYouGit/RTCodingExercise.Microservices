@@ -1,6 +1,9 @@
-﻿using MassTransit;
+﻿using Catalog.API.Interfaces;
+using Catalog.API.Services;
+using MassTransit;
 using Microsoft.OpenApi.Models;
 using RabbitMQ.Client;
+//using Catalog.Application.Services
 
 namespace Catalog.API
 {
@@ -49,10 +52,15 @@ namespace Catalog.API
             services.AddControllers();
             services.AddControllersWithViews();
             services.AddRazorPages();
-
+            services.AddScoped<IPlateRepository, PlateRepository>();
+            services.AddScoped<IPromoCodeService, PromoCodeService>();
             services.AddMassTransit(x =>
             {
-                //x.AddConsumer<ConsumerClass>();
+                x.AddConsumer<AddPlateConsumer>();
+                x.AddConsumer<ReservePlateConsumer>();
+                x.AddConsumer<SellPlateConsumer>();
+
+             
 
                 //ADD CONSUMERS HERE
                 x.UsingRabbitMq((context, cfg) =>
